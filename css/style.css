@@ -1,0 +1,19 @@
+.flex-container-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.flex-container-row > span{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3px;
+}
+
+.box-container{
+    border-width: 5px;
+    border-style: solid;
+    border-color: black;
+    width: 300px;
+    margin: 10px;
+}
