@@ -13,7 +13,12 @@ class Faction_Clock extends HTMLElement{
     }
 
     async init(){
-        this.innerHTML = await this.fetchTemplate();
+        const shadow = this.attachShadow({mode: "open"});
+        shadow.innerHTML = await this.fetchTemplate();
+        
+        /* shadow.getElementById("test").addEventListener("click", function(){
+            console.log("DING!");
+        }); */
     }
 
     connectedCallback(){
