@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/style.css">
 
-    <script src="./web_components/faction_clock.js" defer async></script>
+    <script src="./web_components/faction_clock/faction_clock.js" defer async></script>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
         document.getElementById("btn-add-faction").addEventListener("click", function(){
             let factionList = document.getElementById("faction-list");
             factionList.appendChild(document.createElement("faction-clock"));
-        })
+        });
     </script>
 </body>
 
