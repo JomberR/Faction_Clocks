@@ -6,7 +6,7 @@ class Faction_Clock extends HTMLElement{
     }
 
     async fetchTemplate(){
-        let template = fetch("/web_components/faction_clock.html")
+        let template = fetch("./web_components/faction_clock.html")
         .then((response) => response.text());
         
         return template;
