@@ -10,10 +10,14 @@
     padding: 3px;
 }
 
+body{
+    margin: 20px;
+}
+
 .box-container{
     border-width: 5px;
     border-style: solid;
     border-color: black;
-    width: 300px;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }

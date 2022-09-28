@@ -1,14 +1,29 @@
 
 <link rel="stylesheet" href="./css/style.css">
 <div class="box-container">
+
     <div class="flex-row">
-        <span><b>Faction Name</b></span>
+
+        <span style="font-size: 25px;"><b>Faction Name</b></span>
+        &nbsp;&nbsp;&nbsp;
+
+        <span><button>Rename</button></span>
+        &nbsp;&nbsp;&nbsp;
+
+        <span><button>Delete</button></span>
+        &nbsp;&nbsp;&nbsp;
+        
     </div>
+
+    &nbsp;
+
     <div class="flex-row">
         <span id="level">Level: X</span>
     </div>
-    <div class="flex-row">
-        <span id="clock">X/X:</span>
-        <span id="topic">A generic topic!</span>
+    <!--This node may be duplicated, so we give them custom attribute ids. Use querySelector. 
+        Append the listeners to the cloned node so we don't have to rename each child.-->
+    <div class="flex-row" data-id="clock-topic-group">
+        <span data-id="clock">X/X:</span>
+        <span data-id="topic">A generic topic!</span>
     </div>
 </div>
