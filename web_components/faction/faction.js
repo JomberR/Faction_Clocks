@@ -1,10 +1,12 @@
-class Faction_Clock extends HTMLElement{
+class Faction extends HTMLElement{
     constructor(){
         super();
+
+        this.element = this;
     }
 
     async fetchTemplate(){
-        let template = fetch("./web_components/faction_clock/faction_clock.html")
+        let template = fetch("./web_components/faction/faction.html")
         .then((response) => response.text());
         
         return template;
@@ -29,6 +31,15 @@ class Faction_Clock extends HTMLElement{
                 label.innerHTML = defaultLabel;
             }
         }
+    }
+
+    deleteListener(){
+        let deleteBtn = this.shadowRoot.getElementById("button-delete-faction");
+        let self = this;
+
+        deleteBtn.addEventListener("click", function(){
+            self.remove();
+        });
     }
 
     clockListener(){
@@ -79,6 +90,7 @@ class Faction_Clock extends HTMLElement{
         this.clockListener();
         this.factionNameListener();
         this.diceListener();
+        this.deleteListener();
     }
 
     async init(){
@@ -92,4 +104,4 @@ class Faction_Clock extends HTMLElement{
     }
 }
 
-customElements.define("faction-clock", Faction_Clock);
+customElements.define("custom-faction", Faction);

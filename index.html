@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./css/style.css">
 
     <!-- import EVERYTHING from the folder of the component we want.-->
-    <script src="./web_components/faction_clock/faction_clock.js" defer async></script>
-    <script src="./web_components/faction_clock/sub_clock.js" defer async></script>
+    <script src="./web_components/faction/faction.js" defer async></script>
+    <script src="./web_components/faction/sub_clock.js" defer async></script>
 </head>
 
 <body>
@@ -24,14 +24,19 @@
     &nbsp;
 
     <div class="flex-container" id="faction-list">
-        <faction-clock></faction-clock>
+        <custom-faction></custom-faction>
     </div>
 
     <script>
+        let factionArray = [];
+
         //Allow the user to add their own factions
         document.getElementById("btn-add-faction").addEventListener("click", function(){
             let factionList = document.getElementById("faction-list");
-            factionList.appendChild(document.createElement("faction-clock"));
+            let faction = document.createElement("custom-faction")
+            factionList.appendChild(faction);
+
+            factionArray.push(faction);
         });
     </script>
 </body>
