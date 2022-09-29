@@ -8,26 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/style.css">
 
-    <script src="./web_components/faction_clock.js" defer async></script>
+    <!-- import EVERYTHING from the folder of the component we want.-->
+    <script src="./web_components/faction_clock/faction_clock.js" defer async></script>
+    <script src="./web_components/faction_clock/sub_clock.js" defer async></script>
 </head>
 
 <body>
-    <h1>Wow!</h1>
+    <h1>Faction Clocks</h1>
 
     <div class="flex-row">
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
-        <faction-clock></faction-clock>
+        <button id="btn-add-faction">Add a New Faction</button>
+    </div>
+
+    &nbsp;
+    &nbsp;
+
+    <div class="flex-container" id="faction-list">
         <faction-clock></faction-clock>
     </div>
 
     <script>
+        //Allow the user to add their own factions
+        document.getElementById("btn-add-faction").addEventListener("click", function(){
+            let factionList = document.getElementById("faction-list");
+            factionList.appendChild(document.createElement("faction-clock"));
+        });
     </script>
 </body>
 

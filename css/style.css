@@ -1,19 +1,52 @@
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
 .flex-row{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-items: center;
+}
+
+.flex-column{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .flex-row > span{
-    display: flex;
-    flex-wrap: wrap;
     padding: 3px;
+}
+
+.flex-column > div{
+    padding-bottom: 5px;
+}
+
+.flex-center{
+    display: flex;
+    align-items: center;
+}
+
+body{
+    margin: 20px;
 }
 
 .box-container{
     border-width: 5px;
     border-style: solid;
     border-color: black;
-    width: 300px;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.background-click-input{
+    background-color: #E1E1E1;
+}
+
+.background-click-input:hover{
+    background-color: #D1D1D1
 }
