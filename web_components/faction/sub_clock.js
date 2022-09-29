@@ -4,7 +4,7 @@ class Sub_Clock extends HTMLElement{
     }
 
     async fetchTemplate(){
-        let template = fetch("./web_components/faction_clock/sub_clock.html")
+        let template = fetch("./web_components/faction/sub_clock.html")
         .then((response) => response.text());
         
         return template;
