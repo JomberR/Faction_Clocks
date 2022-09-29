@@ -1,3 +1,7 @@
+.bold{
+    font-weight: bold;
+}
+
 .flex-container{
     display: flex;
     flex-wrap: wrap;
@@ -48,5 +52,5 @@ body{
 }
 
 .background-click-input:hover{
-    background-color: #D1D1D1
+    background-color: #D1D1D1;
 }

@@ -1,4 +1,3 @@
-
 class Faction_Clock extends HTMLElement{
     constructor(){
         super();
@@ -11,23 +10,81 @@ class Faction_Clock extends HTMLElement{
         return template;
     }
 
-    addClockListener(shadow){
-        let button = shadow.getElementById("button-add-clock");
+    toggleLabel(input, label, defaultLabel){
+        if(label.hidden === false){
+            label.hidden = true;
+
+            input.value = label.innerHTML;
+            input.hidden = false;
+            input.focus();
+        }
+        else{
+            input.hidden = true;
+            label.hidden = false;
+
+            if(input.value){
+                label.innerHTML = input.value;
+            }
+            else{
+                label.innerHTML = defaultLabel;
+            }
+        }
+    }
+
+    clockListener(){
+        let button = this.shadowRoot.getElementById("button-add-clock");
+        let clockList = this.shadowRoot.getElementById("clocks");
+
         button.addEventListener("click", function(){
-            let clockList = shadow.getElementById("clocks");
             let clock = document.createElement("sub-clock");
             clockList.appendChild(clock);
         });
     }
 
-    setListeners(shadow){
-        this.addClockListener(shadow);
+    factionNameListener(){
+        let factionName = this.shadowRoot.getElementById("faction-name");
+        let input = this.shadowRoot.getElementById("faction-name-input");
+
+        const toggleLabelBind = this.toggleLabel.bind(this, input, factionName, "Faction Name");
+
+        factionName.addEventListener("click", toggleLabelBind);
+        input.addEventListener("blur", toggleLabelBind);
+
+        input.addEventListener("keypress", function(event){
+            if(event.key === "Enter"){
+                toggleLabelBind();
+            }
+        });
+    }
+
+    
+
+    diceListener(){
+        let dice = this.shadowRoot.getElementById("dice");
+        let input = this.shadowRoot.getElementById("dice-input");
+
+        const toggleLabelBind = this.toggleLabel.bind(this, input, dice, "1");
+
+        dice.addEventListener("click", toggleLabelBind);
+        input.addEventListener("blur", toggleLabelBind);
+
+        input.addEventListener("keypress", function(event){
+            if(event.key === "Enter"){
+                toggleLabelBind();
+            }
+        });
+    }
+
+    setListeners(){
+        this.clockListener();
+        this.factionNameListener();
+        this.diceListener();
     }
 
     async init(){
         const shadow = this.attachShadow({mode: "open"});
         shadow.innerHTML = await this.fetchTemplate();
-        this.setListeners(shadow);
+        this.setListeners();
     }
 
     connectedCallback(){
