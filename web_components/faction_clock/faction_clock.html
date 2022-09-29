@@ -7,10 +7,10 @@
         <span class="background-click-input" style="font-size: 25px;" id="faction-name"><b>Faction Name</b></span>
         &nbsp;&nbsp;&nbsp;
 
-        <span><button>Add Clock</button></span>
+        <span><button id="button-add-clock">Add Clock</button></span>
         &nbsp;&nbsp;&nbsp;
 
-        <span><button>Delete</button></span>
+        <span><button id="button-delete-faction">Delete</button></span>
         &nbsp;&nbsp;&nbsp;
 
     </div>
@@ -23,36 +23,7 @@
     </div>
     
     &nbsp;
-
-    <!--This node may be duplicated, so we give them custom attribute ids. Use querySelector. 
-        Append the listeners to the cloned node so we don't have to rename each child.-->
-    <div data-id="clock">
-        <span class="flex-row">
-            <span>
-                <select>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                </select>
-            </span>
-            &nbsp;&nbsp;&nbsp;
-        
-
-            <div data-id="clock-timer">(X/X)
-                <div class="flex-row">
-                    <span><button>-</button></span>
-                    <span><button>+</button></span>
-                </div>
-            </div>
-            &nbsp;&nbsp;&nbsp;
-
-            <span data-id="clock-name" class="background-click-input">A generic clock!</span>
-            &nbsp;&nbsp;&nbsp;
-
-            <span><button>Delete</button></span>
-            &nbsp;&nbsp;&nbsp;
-        </span>
-        
+    <div id="clocks">
+        <sub-clock></sub-clock>
     </div>
-
 </div>

@@ -2,7 +2,6 @@
 class Faction_Clock extends HTMLElement{
     constructor(){
         super();
-        //console.log(this.fetchTemplate());
     }
 
     async fetchTemplate(){
@@ -12,13 +11,23 @@ class Faction_Clock extends HTMLElement{
         return template;
     }
 
+    addClockListener(shadow){
+        let button = shadow.getElementById("button-add-clock");
+        button.addEventListener("click", function(){
+            let clockList = shadow.getElementById("clocks");
+            let clock = document.createElement("sub-clock");
+            clockList.appendChild(clock);
+        });
+    }
+
+    setListeners(shadow){
+        this.addClockListener(shadow);
+    }
+
     async init(){
         const shadow = this.attachShadow({mode: "open"});
         shadow.innerHTML = await this.fetchTemplate();
-        
-        /* shadow.getElementById("test").addEventListener("click", function(){
-            console.log("DING!");
-        }); */
+        this.setListeners(shadow);
     }
 
     connectedCallback(){

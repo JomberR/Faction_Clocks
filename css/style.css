@@ -23,7 +23,11 @@
 
 .flex-column > div{
     padding-bottom: 5px;
+}
+
+.flex-center{
     display: flex;
+    align-items: center;
 }
 
 body{
