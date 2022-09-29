@@ -4,26 +4,55 @@
 
     <div class="flex-row">
 
-        <span style="font-size: 25px;"><b>Faction Name</b></span>
+        <span class="background-click-input" style="font-size: 25px;" id="faction-name"><b>Faction Name</b></span>
         &nbsp;&nbsp;&nbsp;
 
-        <span><button>Rename</button></span>
+        <span><button>Add Clock</button></span>
         &nbsp;&nbsp;&nbsp;
 
         <span><button>Delete</button></span>
         &nbsp;&nbsp;&nbsp;
+
+    </div>
+
+    <br>
+
+    <div class="flex-row">
+        <span style="font-size: 20px;">Dice:</span>
+        <span id="dice" class="background-click-input" style="font-size: 20px;">X</span>
+    </div>
+    
+    &nbsp;
+
+    <!--This node may be duplicated, so we give them custom attribute ids. Use querySelector. 
+        Append the listeners to the cloned node so we don't have to rename each child.-->
+    <div data-id="clock">
+        <span class="flex-row">
+            <span>
+                <select>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                </select>
+            </span>
+            &nbsp;&nbsp;&nbsp;
+        
+
+            <div data-id="clock-timer">(X/X)
+                <div class="flex-row">
+                    <span><button>-</button></span>
+                    <span><button>+</button></span>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+
+            <span data-id="clock-name" class="background-click-input">A generic clock!</span>
+            &nbsp;&nbsp;&nbsp;
+
+            <span><button>Delete</button></span>
+            &nbsp;&nbsp;&nbsp;
+        </span>
         
     </div>
 
-    &nbsp;
-
-    <div class="flex-row">
-        <span id="level">Level: X</span>
-    </div>
-    <!--This node may be duplicated, so we give them custom attribute ids. Use querySelector. 
-        Append the listeners to the cloned node so we don't have to rename each child.-->
-    <div class="flex-row" data-id="clock-topic-group">
-        <span data-id="clock">X/X:</span>
-        <span data-id="topic">A generic topic!</span>
-    </div>
 </div>
