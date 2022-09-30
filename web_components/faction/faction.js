@@ -52,6 +52,16 @@ class Faction extends HTMLElement{
         });
     }
 
+    traitListener(){
+        let button = this.shadowRoot.getElementById("button-add-trait");
+        let traitList = this.shadowRoot.getElementById("traits");
+
+        button.addEventListener("click", function(){
+            let trait = document.createElement("custom-trait");
+            traitList.appendChild(trait);
+        });
+    }
+
     factionNameListener(){
         let factionName = this.shadowRoot.getElementById("faction-name");
         let input = this.shadowRoot.getElementById("faction-name-input");
@@ -89,6 +99,7 @@ class Faction extends HTMLElement{
         this.factionNameListener();
         this.diceListener();
         this.deleteListener();
+        this.traitListener();
     }
 
     async init(){
