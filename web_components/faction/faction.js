@@ -47,7 +47,7 @@ class Faction extends HTMLElement{
         let clockList = this.shadowRoot.getElementById("clocks");
 
         button.addEventListener("click", function(){
-            let clock = document.createElement("sub-clock");
+            let clock = document.createElement("custom-clock");
             clockList.appendChild(clock);
         });
     }
@@ -67,8 +67,6 @@ class Faction extends HTMLElement{
             }
         });
     }
-
-    
 
     diceListener(){
         let dice = this.shadowRoot.getElementById("dice");

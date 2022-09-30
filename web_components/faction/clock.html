@@ -1,0 +1,39 @@
+<div id="clock-body">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <div id="clock">
+        <span class="flex-row">
+            <span>
+                <select id="clock-size">
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                </select>
+            </span>
+            &nbsp;&nbsp;&nbsp;
+
+
+            <div class="flex-column flex-center" id="clock-timer">
+                <div class="flex-row">
+                    <span>
+                        (X/X)
+                    </span>
+                </div>
+                <div class="flex-row">
+                    <span><button id="subtract"> - </button></span>
+                    <span><button id="add"> + </button></span>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+
+            <span id="clock-name" class="background-click-input" style="padding-left: 10px; padding-right: 10px;">Clock Name</span>
+            <input type="text" id="clock-name-input" hidden>
+            &nbsp;&nbsp;&nbsp;
+
+            <span><button id="button-delete-clock">Delete</button></span>
+            &nbsp;&nbsp;&nbsp;
+        </span>
+    </div>
+
+    <br>
+</div>
