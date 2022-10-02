@@ -31,7 +31,7 @@ class Clock extends HTMLElement{
         }
     }
 
-    async setClockDisplay(){
+    setClockDisplay(){
         let clockSize = this.shadowRoot.getElementById("clock-size");
         let clockProgress = this.shadowRoot.getElementById("clock-progress");
         let clockDisplay = this.shadowRoot.getElementById("clock-display");

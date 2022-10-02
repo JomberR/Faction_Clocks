@@ -28,6 +28,8 @@ class Trait extends HTMLElement{
             else{
                 label.innerHTML = defaultLabel;
             }
+
+            this.saveAttributes();
         }
     }
 
@@ -61,9 +63,24 @@ class Trait extends HTMLElement{
         this.deleteListener();
     }
 
+    //We're saving our attributes so we can reinstate ourselves later when we're saved/loaded.
+    //We call a custom event save so that our parent can save us.
+    saveAttributes(){
+        let name = this.shadowRoot.getElementById("trait-name");
+        this.setAttribute("name", name.innerHTML);
+        this.dispatchEvent(new CustomEvent("save", {bubbles: true, composed: true}));
+    }
+
+    //We've been loaded and may have values preloaded
+    setInitialValues(){
+        let traitName = this.shadowRoot.getElementById("trait-name");
+        traitName.innerHTML = this.getAttribute("name") || "Trait Name";
+    }
+
     async init(){
         const shadow = this.attachShadow({mode: "open"});
         shadow.innerHTML = await this.fetchTemplate();
+        this.setInitialValues();
         this.setListeners();
     }
 

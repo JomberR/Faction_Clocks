@@ -19,26 +19,38 @@
 
     <div class="flex-row">
         <button id="btn-add-faction">Add a New Faction</button>
+        &nbsp;&nbsp;
+
+        <button id="btn-save">Save</button>
     </div>
 
-    &nbsp;
-    &nbsp;
+    <br>
 
     <div class="flex-container" id="faction-list">
         <custom-faction></custom-faction>
+        
+        <custom-faction 
+        name="A custom faction!" 
+        dice="3" 
+        traits='{"traits":["One trait", "Another trait"]}'>
+        </custom-faction>
     </div>
 
     <script>
-        let factionArray = [];
 
         //Allow the user to add their own factions
         document.getElementById("btn-add-faction").addEventListener("click", function(){
             let factionList = document.getElementById("faction-list");
             let faction = document.createElement("custom-faction")
             factionList.appendChild(faction);
-
-            factionArray.push(faction);
         });
+
+        document.getElementById("btn-save").addEventListener("click", function(){
+            let factionList = document.getElementById("faction-list").innerHTML;
+            console.log(factionList);
+        });
+    
+
     </script>
 </body>
 
