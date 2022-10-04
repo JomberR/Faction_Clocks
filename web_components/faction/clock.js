@@ -10,6 +10,7 @@ class Clock extends HTMLElement{
         return template;
     }
 
+    //Allows the user to input values
     toggleLabel(input, label, defaultLabel){
         if(label.hidden === false){
             label.hidden = true;
@@ -70,7 +71,9 @@ class Clock extends HTMLElement{
         }
 
         clockDisplay.innerHTML = `${clockProgress.innerHTML} / ${clockSize.value}`;
-        this.saveAttributes();
+
+        //While it might seem to make a lot of sense to save here, this is function is called when first initializing, and therefore gets called a bunch
+        //of times when loading in.
     }
 
     clockProgressListener(){
@@ -80,8 +83,12 @@ class Clock extends HTMLElement{
         let clockSubtract = this.shadowRoot.getElementById("clock-subtract");
 
         const setClockDisplayBind = this.setClockDisplay.bind(this);
+        const saveAttributesBind = this.saveAttributes.bind(this);
 
-        clockSize.addEventListener("change", setClockDisplayBind);
+        clockSize.addEventListener("change", function(){
+            setClockDisplayBind();
+            saveAttributesBind();
+        });
 
         clockAdd.addEventListener("click", function(){
             let progress = parseInt(clockProgress.innerHTML);
@@ -89,6 +96,7 @@ class Clock extends HTMLElement{
                 progress++;
                 clockProgress.innerHTML = progress;
                 setClockDisplayBind();
+                saveAttributesBind();
             }
         });
 
@@ -98,6 +106,7 @@ class Clock extends HTMLElement{
                 progress--;
                 clockProgress.innerHTML = progress;
                 setClockDisplayBind();
+                saveAttributesBind();
             }
         });
         

@@ -29,7 +29,7 @@ class Faction extends HTMLElement{
             else{
                 label.innerHTML = defaultLabel;
             }
-            this.saveAttributes();
+            this.dispatchEvent(new CustomEvent("save", {bubbles: true}));
         }
     }
 
@@ -113,6 +113,7 @@ class Faction extends HTMLElement{
 
         const callback = () =>{
             this.saveAttributes();
+            this.dispatchEvent(new CustomEvent("save", {bubbles: true, composed: true}));
         };
 
         let observer = new MutationObserver(callback);

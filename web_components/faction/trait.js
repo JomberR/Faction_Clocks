@@ -10,6 +10,7 @@ class Trait extends HTMLElement{
         return template;
     }
 
+    //Allows the user to edit text entries by swapping between an input and the static text
     toggleLabel(input, label, defaultLabel){
         if(label.hidden === false){
             label.hidden = true;
