@@ -22,34 +22,29 @@
         &nbsp;&nbsp;
 
         <button id="btn-save">Save</button>
+        &nbsp;&nbsp;
+
+        <button id="btn-download">Download Save File</button>
+        &nbsp;&nbsp;
+
+        <label for="btn-upload" style="margin-left: 10px;">Load a Save File:</label>
+        <input type="file" id="btn-upload" accept=".txt">
+        &nbsp;&nbsp;
+
+        <button id="btn-reset" style="margin-left: 10px;">Reset</button>
+        &nbsp;&nbsp;        
     </div>
 
     <br>
 
     <div class="flex-container" id="faction-list">
         <custom-faction></custom-faction>
-        
-        <custom-faction 
-        name="A custom faction!" 
-        dice="3" 
-        traits='{"traits":["One trait", "Another trait"]}'
-        clocks='{"clocks":[
-        {
-            "name": "One clock",
-            "size": "4",
-            "progress": "0"
-        },
-        {
-            "name": "Two clock",
-            "size": "6",
-            "progress": "2"
-        }
-        
-        ]}'>
-        </custom-faction>
     </div>
 
     <script>
+
+        //Autosave whenever a faction reports that it has been changed.
+        document.getElementById("faction-list").addEventListener("save", save);
 
         //Allow the user to add their own factions
         document.getElementById("btn-add-faction").addEventListener("click", function(){
@@ -58,14 +53,79 @@
             factionList.appendChild(faction);
         });
 
+        //Manual saves because let's face it, nobody trusts an autosave.
         document.getElementById("btn-save").addEventListener("click", function(){
-            let factionList = document.getElementById("faction-list").innerHTML;
-            console.log(factionList);
-            let json = JSON.stringify(factionList);
-            console.log(json);
-            console.log(JSON.parse(json));
+            save();
+            alert("Saved!");
         });
+
+        document.getElementById("btn-download").addEventListener("click", function(){
+
+            //Do the normal save. Not call the function because we need to get the json anyway and for the sake of speed we're not repeating steps.
+            let factionList = document.getElementById("faction-list").innerHTML;
+            let json = JSON.stringify(factionList);
+            localStorage.setItem("save", json);
+
+            downloadSave(json);
+        });
+
+        document.getElementById("btn-upload").addEventListener("change", function(event){
+            let file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event){
+                let json = event.target.result;
+                let factionList = document.getElementById("faction-list");
+                let uploadInput = document.getElementById("btn-upload");
+
+                try{
+                    factionList.innerHTML = JSON.parse(json);
+                    uploadInput.value = "";
+                }
+                catch{
+                    alert("File is not a valid save file.");
+                }
+            };
+
+            reader.readAsText(file);
+        });
+
+        //Reset the page back to basics
+        document.getElementById("btn-reset").addEventListener("click", function(){
+            let factionList = document.getElementById("faction-list");
+
+            if(confirm("Are you sure you want to reset the page?")){
+                factionList.innerHTML = "<custom-faction></custom-faction>";
+            }
+        });
+
+        function save(){
+            let factionList = document.getElementById("faction-list").innerHTML;
+            let json = JSON.stringify(factionList);
+            localStorage.setItem("save", json);
+        }
+
+        function downloadSave(json){
+            let downloadLink = document.createElement("a");
+            downloadLink.hidden = true;
+            let file = new Blob([json], {type: "text/plain"});
+
+            downloadLink.href = URL.createObjectURL(file);
+            downloadLink.download = "save_factions.txt";
+
+            downloadLink.click();
+
+            downloadLink.remove();
+        }
+
+        function init(){
+            let factionList = document.getElementById("faction-list");
+            let parsedJson = JSON.parse(localStorage.getItem("save")) || "<custom-faction></custom-faction>";
+            factionList.innerHTML = parsedJson;
+        }
     
+        init();
+
 
     </script>
 </body>

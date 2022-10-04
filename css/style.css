@@ -25,6 +25,10 @@
     padding: 3px;
 }
 
+.flex-row > label{
+    margin-right: 10px;
+}
+
 .flex-column > div{
     padding-bottom: 5px;
 }
