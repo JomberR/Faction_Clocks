@@ -99,12 +99,25 @@ class Faction extends HTMLElement{
         });
     }
 
-    //Listen to our children via event bubbling
-    childListeners(){
-        const saveAttributesBind = this.saveAttributes.bind(this);
+    //See if we need to save because a child reported it changed and needs to be saved, we brought a new child into this world, or because we mercilessly killed it.
+    childSaveDetector(){
         this.addEventListener("save", function(){
-            saveAttributesBind();
+            this.saveAttributes();
         });
+
+        //Figure out if a child was added or deleted
+        const traitList = this.shadowRoot.getElementById("traits");
+        const clockList = this.shadowRoot.getElementById("clocks");
+
+        let config = {childList: true};
+
+        const callback = () =>{
+            this.saveAttributes();
+        };
+
+        let observer = new MutationObserver(callback);
+        observer.observe(traitList, config);
+        observer.observe(clockList, config);
     }
 
     setListeners(){
@@ -113,11 +126,13 @@ class Faction extends HTMLElement{
         this.diceListener();
         this.deleteListener();
         this.traitListener();
-        this.childListeners();
+        this.childSaveDetector();
     }
 
     //We're saving our attributes so we can reinstate ourselves later when we're saved/loaded.
     saveAttributes(){
+        let jsonString = "";
+
         //Name and dice
         let factionName = this.shadowRoot.getElementById("faction-name");
         this.setAttribute("name", factionName.innerHTML);
@@ -129,10 +144,25 @@ class Faction extends HTMLElement{
         let traits = this.shadowRoot.getElementById("traits");
         let traitList = [];
         for(let i = 0; i < traits.children.length; i++){
-            traitList.push(traits.children[i].getAttribute("name"));
+            traitList.push(traits.children[i].getAttribute("name") || "Trait Name");
         }
-        let jsonString = JSON.stringify(traitList);
+        jsonString = JSON.stringify(traitList);
         this.setAttribute("traits", `{"traits": ${jsonString}}`);
+
+        //Clocks
+        let clocks = this.shadowRoot.getElementById("clocks");
+        let clockList = [];
+        for(let i = 0; i < clocks.children.length; i++){
+            let savedClock = clocks.children[i];
+            let obj = {
+                name: savedClock.getAttribute("name") || "Clock Name",
+                size: savedClock.getAttribute("size") || "4",
+                progress: savedClock.getAttribute("progress") || "0"
+        };
+            clockList.push(obj || {name: "Clock Name", size: "4", progress: "0"} );
+    }
+        jsonString = JSON.stringify(clockList);
+        this.setAttribute("clocks", `{"clocks": ${jsonString}}`);
     }
 
     //We've been loaded and may have values preloaded
@@ -147,8 +177,8 @@ class Faction extends HTMLElement{
     //Load any traits we should already have.
     setInitialTraits(){
         let traitList = this.shadowRoot.getElementById("traits");
-        let traits = this.getAttribute("traits") || '{"traits":["Trait Name"]}';
-        let json = JSON.parse(traits);
+        let traitsAttribute = this.getAttribute("traits") || '{"traits":["Trait Name"]}';
+        let json = JSON.parse(traitsAttribute);
 
         for(let i = 0; i < json.traits.length; i++){
             let trait = document.createElement("custom-trait");
@@ -157,11 +187,27 @@ class Faction extends HTMLElement{
         }
     }
 
+    //Load clocks
+    setInitialClocks(){
+        let clockList = this.shadowRoot.getElementById("clocks");
+        let clocksAttribute = this.getAttribute("clocks") || '{"clocks":[{"name": "Clock Name", "size": "4", "progress": "0"}]}';
+        let json = JSON.parse(clocksAttribute);
+
+        for(let i = 0; i < json.clocks.length; i++){
+            let clock = document.createElement("custom-clock");
+            clock.setAttribute("name", json.clocks[i].name);
+            clock.setAttribute("size", json.clocks[i].size);
+            clock.setAttribute("progress", json.clocks[i].progress);
+            clockList.appendChild(clock);
+        }
+    }
+
     async init(){
         const shadow = this.attachShadow({mode: "open"});
         shadow.innerHTML = await this.fetchTemplate();
         this.setInitialValues();
         this.setInitialTraits();
+        this.setInitialClocks();
         this.setListeners();
     }
 
